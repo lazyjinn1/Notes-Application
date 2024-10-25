@@ -1,0 +1,85 @@
+// Variables
+$primary-color: dodgerblue;
+$note-background: #ffff00;
+$shadow-color: rgba(0, 0, 0, 0.46);
+$note-width: 200px;
+$container-padding: 2rem;
+$font-size-large: 4rem;
+$font-size-medium: 3rem;
+$font-size-small: 1rem;
+$font-size-xsmall: 0.9rem;
+$font-size-xxsmall: 0.7rem;
+
+// Mixins
+@mixin box-shadow($x, $y, $blur, $spread, $color) {
+  box-shadow: $x $y $blur $spread $color;
+}
+
+// Global Styles
+.container {
+  padding: 0 $container-padding;
+}
+
+// Page Title
+.pageTitle {
+  margin: 0;
+  line-height: 1.15;
+  font-size: $font-size-large;
+
+  @media (max-width: 768px) {
+    font-size: $font-size-medium;
+  }
+}
+
+// Grid Layout
+.grid {
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: auto;
+}
+
+// Note Styles
+.note {
+  height: auto;
+  width: $note-width;
+  padding: 10px 25px;
+  margin: 0.5rem;
+  background: $note-background;
+  border-radius: 2px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: auto;
+  max-width: 25vw;
+  height: 30vh;
+  p {
+    text-overflow: ellipsis " [..]";
+
+  }
+
+  @include box-shadow(4px, 4px, 8px, 1px, $shadow-color);
+
+  // Nested Styles
+  .title {
+    padding: 0.1rem;
+    font-size: $font-size-small;
+  }
+
+  .content {
+    font-size: $font-size-xsmall;
+    font-weight: normal;
+  }
+
+  .created {
+    font-size: $font-size-xxsmall;
+    font-weight: lighter;
+  }
+}
+
+// Action Styles
+.action {
+  text-align: left;
+  color: $primary-color;
+}
