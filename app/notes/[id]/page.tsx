@@ -1,15 +1,13 @@
 import styles from '../Notes.module.scss';
 import { formatDate } from '../../utils/utils';
+import PocketBase from 'pocketbase';
 
 async function getNote(noteId: string) {
-    const res = await fetch(
-        `http://127.0.0.1:8090/api/collections/notes/records/${noteId}`,
-        {
-            next: { revalidate: 10 },
-        }
-    );
-    const data = await res.json();
-    return data;
+    const pb = new PocketBase('https://chatapplication.pockethost.io');
+    const record = await pb.collection('Notes').getOne(noteId, {
+        expand: 'relField1,relField2.subRelField',
+    });
+    return record;
 }
 
 export default async function NotePage({ params }: any) {

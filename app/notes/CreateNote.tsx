@@ -12,7 +12,7 @@ export default function CreateNote() {
 
     const createNote = async (e: { preventDefault: () => void; }) => {
         e.preventDefault(); // Prevent the default form submission
-        const pb = new PocketBase('http://127.0.0.1:8090');
+        const pb = new PocketBase('https://chatapplication.pockethost.io');
         
         // Create a data object to pass to the PocketBase create method
         const data = {

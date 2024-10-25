@@ -8,7 +8,7 @@ export default function CreateNote({noteId}: {noteId: string}) {
 
     const deleteNote = async (e: { preventDefault: () => void; }) => {
         e.preventDefault(); // Prevent the default form submission
-        const pb = new PocketBase('http://127.0.0.1:8090');
+        const pb = new PocketBase('https://chatapplication.pockethost.io');
 
         try {
             await pb.collection('Notes').delete(noteId);

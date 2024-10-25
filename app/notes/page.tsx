@@ -4,11 +4,22 @@ import { NoteType } from './../types/types';
 import { formatDate } from './../utils/utils';
 import CreateNote from './CreateNote';
 import DeleteNote from './DeleteNote'
+import PocketBase from 'pocketbase';
 
 async function getNotes() {
-    const res = await fetch('http://127.0.0.1:8090/api/collections/notes/records?page=1&perPage=30', { cache: 'no-store' });
-    const data = await res.json();
-    return data?.items as any[];
+    const pb = new PocketBase('https://chatapplication.pockethost.io');
+    const records = await pb.collection('Notes').getFullList({
+        sort: '-created',
+    });
+    return (
+        records.map(record => ({
+            id: record.id,
+            title: record.title,
+            content: record.content,
+            created: record.created,
+            updated: record.updated
+        }))
+    )
 }
 
 export default async function NotesPage() {
