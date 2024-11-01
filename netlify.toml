@@ -1,3 +1,3 @@
 [build]
-  command = "npm install --legacy-peer-deps"
-  command = "npx next build"
+  command = "npm install --legacy-peer-deps && npx next build"
+  publish = "build"  # Ensure this points to your output directory
