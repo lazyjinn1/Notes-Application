@@ -26,7 +26,7 @@ function Note({ note }: { note: NoteType }) {
 
 
 export default async function NotesPage() {
-    const { allNotes, finishedNotes, unfinishedNotes } = await getNotes();
+    const { finishedNotes, unfinishedNotes } = await getNotes();
     return (
         <div className="grid grid-cols-3 grid-rows-2 h-screen">
             <div className="col-span-2 overflow-x-scroll row-span-2" >

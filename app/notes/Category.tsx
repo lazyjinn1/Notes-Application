@@ -10,7 +10,7 @@ export default function ChangeCategory({ noteId, category, title }: { noteId: st
     const [showChoices, setShowChoices] = useState(false);
     const choicesRef = useRef<HTMLDivElement>(null);
 
-    const handleChange = (e: { target: { value: any; }; }) => {
+    const handleChange = (e: { target: { value: string; }; }) => {
         category = e.target.value;
     };
 

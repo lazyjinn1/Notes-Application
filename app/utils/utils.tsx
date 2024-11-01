@@ -1,5 +1,4 @@
 import PocketBase from 'pocketbase';
-import { NoteType } from '../types/types';
 
 export const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString();

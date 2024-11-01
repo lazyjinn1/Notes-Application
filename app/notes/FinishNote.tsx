@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 export default function FinishNote({noteId, finished}: {noteId: string, finished: boolean}): JSX.Element {
     const router = useRouter();
     const toggleFinish = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
 
         const record = await getNote(noteId);
 
