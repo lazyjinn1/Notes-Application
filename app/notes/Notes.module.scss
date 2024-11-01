@@ -1,7 +1,8 @@
 // Variables
 $primary-color: dodgerblue;
-$note-background: #ffff00;
+$note-background: #e1e7d4;
 $shadow-color: rgba(0, 0, 0, 0.46);
+$note-height: 300px;
 $note-width: 200px;
 $container-padding: 2rem;
 $font-size-large: 4rem;
@@ -43,7 +44,7 @@ $font-size-xxsmall: 0.7rem;
 
 // Note Styles
 .note {
-  height: auto;
+  height: $note-height;
   width: $note-width;
   padding: 10px 25px;
   margin: 0.5rem;
@@ -51,9 +52,6 @@ $font-size-xxsmall: 0.7rem;
   border-radius: 2px;
   overflow-y: scroll;
   overflow-x: hidden;
-  width: auto;
-  max-width: 25vw;
-  height: 30vh;
   p {
     text-overflow: ellipsis " [..]";
 
@@ -82,4 +80,133 @@ $font-size-xxsmall: 0.7rem;
 .action {
   text-align: left;
   color: $primary-color;
+}
+
+.checkbox {
+  border: 2px black solid;
+  border-radius: 0;
+  height: 15px;
+  width: 15px;
+  display: inline-block; /* Changed to inline-block for proper box model */
+  position: relative; /* For positioning the check mark */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Show check mark when checked */
+.checkbox.checked::before {
+  content: '✓';
+  display: block;
+  text-align: center;
+  line-height: 12px; /* Center the checkmark vertically */
+}
+
+/* Hide check mark when unchecked */
+.checkbox.unchecked::before {
+  content: '';
+}
+
+/* Show check mark on hover regardless of checked state */
+.checkbox:hover.checked::before,
+.checkbox:hover.unchecked::before {
+  content: '✓';
+  color: black;
+  display: block;
+  text-align: center;
+  line-height: 12px; /* Center the checkmark vertically */
+}
+
+.pink{
+  background-color: pink;
+  border-width: 1px;
+}
+
+.green{
+  background-color: green;
+  border-width: 1px;
+}
+
+.yellow{
+  background-color: yellow;
+  border-width: 1px;
+}
+
+.blue{
+  background-color: blue;
+  border-width: 1px;
+}
+
+.red{
+  background-color: red;
+  border-width: 1px;
+}
+
+.orange{
+  background-color: orange;
+  border-width: 1px;
+  background-color: rgba(255, 165, 0, 0.3);
+}
+
+.purple{
+  background-color: purple;
+  border-width: 1px;
+}
+
+.brown{
+  background-color: brown;
+  border-width: 1px;
+}
+
+.black{
+  background-color: black;
+  border-width: 1px;
+}
+
+.white{
+  background-color: white;
+  border-width: 1px;
+}
+
+.gray{
+  background-color: gray;
+  border-width: 1px;
+}
+
+.teal{
+  background-color: teal;
+  border-width: 1px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: background-color 0.3s ease; // Smooth transition
+    z-index: -1; // Ensure it's behind other content
+}
+
+.blue {
+    background-color: rgba(0, 0, 255, 0.3); // Light blue overlay
+}
+
+.pink {
+    background-color: rgba(255, 105, 180, 0.3); // Light pink overlay
+}
+
+.purple {
+    background-color: rgba(128, 0, 128, 0.3); // Light purple overlay
+}
+
+.green {
+    background-color: rgba(0, 255, 0, 0.3); // Light green overlay
+}
+
+.red {
+    background-color: rgba(255, 0, 0, 0.3); // Light red overlay
+}
+
+.orange {
+    background-color: rgba(255, 165, 0, 0.3); // Light orange overlay
 }

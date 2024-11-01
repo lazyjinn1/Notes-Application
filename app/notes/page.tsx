@@ -1,52 +1,58 @@
-import Link from "next/link";
 import styles from './Notes.module.scss';
 import { NoteType } from './../types/types';
-import { formatDate } from './../utils/utils';
+import { formatDate, getNotes } from './../utils/utils';
 import CreateNote from './CreateNote';
 import DeleteNote from './DeleteNote'
-import PocketBase from 'pocketbase';
+import FinishNote from './FinishNote';
+import ChangeCategory from './Category';
 
-async function getNotes() {
-    const pb = new PocketBase('https://chatapplication.pockethost.io');
-    const records = await pb.collection('Notes').getFullList({
-        sort: '-created',
-    });
-    return (
-        records.map(record => ({
-            id: record.id,
-            title: record.title,
-            content: record.content,
-            created: record.created,
-            updated: record.updated
-        }))
-    )
-}
 
-export default async function NotesPage() {
-    const notes = await getNotes();
+function Note({ note }: { note: NoteType }) {
+    const { id, title, content, created, finished, category } = note || {};
     return (
-        <div>
-            <h1>Notes</h1>
-            <div className={styles.grid}>
-                {notes?.map((note) => {
-                    return <Note key={note.id} note={note} />;
-                })}
+        <div className={`${styles.note} relative p-0 border rounded-lg space-y-5 w-1/4 h-1/5 overflow-visible`}>
+            <div className="z-10 mb-20 grid grid-rows-1 grid-cols-2">
+                <div className="z-20"><DeleteNote noteId={id} /></div>
+                <div className="z-20s"><ChangeCategory noteId={id} category={category} title={title} /></div>
             </div>
-            <CreateNote />
+            <p className="text-wrap break-words"><b className="text-1xl">Details:</b> {content ? content : 'N/A'}</p>
+
+            <div className="absolute bottom-1 right-0"><FinishNote noteId={id} finished={finished} /></div>
+            <p className="absolute bottom-0 left-1">{formatDate(created)}</p>
+
         </div>
     );
 }
 
-function Note({ note }: { note: NoteType }) {
-    const { id, title, content, created } = note || {};
+
+export default async function NotesPage() {
+    const { allNotes, finishedNotes, unfinishedNotes } = await getNotes();
     return (
-        <div className={styles.note}>
-            <Link href={`/notes/${id}`}>
-                <h2><b>Title:</b> {title}</h2>
-                <p><b>Details:</b> {content ? content : 'N/A'}</p>
-                <p><b>Note created:</b> {formatDate(created)}</p>
-            </Link>
-            <DeleteNote noteId={id}/>
+        <div className="grid grid-cols-3 grid-rows-2 h-screen">
+            <div className="col-span-2 overflow-x-scroll row-span-2" >
+                <h1 className="pointer-events-none sticky top-0 text-center font-bold text-5xl z-30">To-Do-List:</h1>
+                <div className={`${styles.grid}  flex flex-row space-x-4`}>
+                    {unfinishedNotes?.map((note) => {
+                        return <Note key={note.id} note={note} />;
+                    })}
+                </div>
+            </div>
+            <div className="col-span-1 overflow-x-scroll row-span-0">
+                <h1 className="pointer-events-none sticky top-0 text-center font-bold text-5xl z-30">Done:</h1>
+                <div className={`${styles.grid} flex flex-row`}>
+                    {finishedNotes?.map((note, index) => {
+                        return (
+                            <div key={index} className="opacity-50 hover:opacity-100 transition-all">
+                                <Note key={note.id} note={note} />;
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+            <div className='absolute right-0 bottom-0 col-start-3'>
+                <CreateNote />
+            </div>
+
         </div>
     );
 }
