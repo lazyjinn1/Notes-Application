@@ -1,0 +1,5 @@
+[build]
+  command = "npm install --legacy-peer-deps && npx next build"
+  publish = "build"
+[build.environment]
+  CI = "false"
